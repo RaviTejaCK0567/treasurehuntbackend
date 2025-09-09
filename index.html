@@ -5,9 +5,28 @@
 <title>Elections Voting</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-html, body { height:100%; margin:0; font-family:'Bookman Old Style', serif; text-align:center; color:white; }
-.page { display:none; }
-.page.active { display:block; }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Bookman Old Style', serif;
+  text-align: center;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Each page fills full viewport */
+.page {
+  display: none;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page.active { display: block; }
+
 .box { display:inline-block; padding:30px; background: rgba(255,255,255,0.1); border-radius:20px; margin-top:20px; box-shadow:0 0 15px rgba(255,255,255,0.3);}
 h1.main-heading { font-size:3.5em; font-weight:bold; color:yellow; text-shadow:3px 3px 8px black,0 0 25px white,0 0 5px orange; margin-bottom:20px;}
 button { padding:10px 20px; border-radius:12px; border:none; cursor:pointer; font-size:16px; background:green; color:white; transition:0.3s;}
@@ -16,12 +35,12 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 
 /* =========================
    Background Images
-   Replace the URLs with your own background image links
+   Replace URLs with your own images
 =========================== */
-#loginPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("login.png") no-repeat center center fixed; background-size:cover; height:100%; }
-#votingPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("voting.png") no-repeat center center fixed; background-size:cover; height:100%; padding-top:20px;}
-#adminPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("admint.mp4") no-repeat center center fixed; background-size:cover; height:100%; padding-top:20px;}
-#adminEmailsPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://via.placeholder.com/1200x800?text=Admin+Emails+Background") no-repeat center center fixed; background-size:cover; height:100%; padding-top:20px; }
+#loginPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("login.png") no-repeat center center fixed; }
+#votingPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("voting.png") no-repeat center center fixed; padding-top:20px;}
+#adminPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://via.placeholder.com/1200x800?text=Admin+Results+Background") no-repeat center center fixed; padding-top:20px;}
+#adminEmailsPage { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://via.placeholder.com/1200x800?text=Admin+Emails+Background") no-repeat center center fixed; padding-top:20px; }
 
 /* =========================
    Candidates Layout
@@ -38,9 +57,7 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 </head>
 <body>
 
-<!-- =========================
-     Login Page
-=========================== -->
+<!-- Login Page -->
 <div id="loginPage" class="page active">
 <h1 class="main-heading">ELECTIONS</h1>
 <div class="box">
@@ -48,14 +65,11 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 <input type="email" id="email" placeholder="Enter Gmail" required><br><br>
 <button onclick="login()">Next</button>
 <br><br>
-<!-- Admin button hidden permanently -->
 <button id="adminBtn" style="display:none;">Admin Login</button>
 </div>
 </div>
 
-<!-- =========================
-     Voting Page
-=========================== -->
+<!-- Voting Page -->
 <div id="votingPage" class="page">
 <h2>Select One Boy and One Girl</h2>
 <div>
@@ -70,9 +84,7 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 <button onclick="submitVote()">Submit Vote</button>
 </div>
 
-<!-- =========================
-     Admin Results Page
-=========================== -->
+<!-- Admin Results Page -->
 <div id="adminPage" class="page">
 <h2>Voting Results</h2>
 <canvas id="resultsChart" width="400" height="200"></canvas>
@@ -82,9 +94,7 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 <button onclick="goHome()">Go Home</button>
 </div>
 
-<!-- =========================
-     Admin Emails Page
-=========================== -->
+<!-- Admin Emails Page -->
 <div id="adminEmailsPage" class="page">
 <h2>Voter Emails</h2>
 <div id="voterEmails"></div><br>
@@ -95,16 +105,14 @@ input[type="email"], input[type="password"] { padding:10px; border-radius:10px; 
 <script>
 // =========================
 // Candidate Data
+// 🔹 Replace names & image URLs here
 // =========================
-
-// 🔹 Replace the names and image URLs here for boys and girls
 const boys = [
   {name:"Boy1", img:"https://via.placeholder.com/120x120?text=Boy1"},
   {name:"Boy2", img:"https://via.placeholder.com/120x120?text=Boy2"},
   {name:"Boy3", img:"https://via.placeholder.com/120x120?text=Boy3"},
   {name:"Boy4", img:"https://via.placeholder.com/120x120?text=Boy4"}
 ];
-
 const girls = [
   {name:"Girl1", img:"https://via.placeholder.com/120x120?text=Girl1"},
   {name:"Girl2", img:"https://via.placeholder.com/120x120?text=Girl2"},
