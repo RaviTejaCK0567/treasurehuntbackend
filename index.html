@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Hunt -- Final Round</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: maroon;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header img {
+      max-height: 150px;
+      max-width: 60%;
+      object-fit: contain;
+    }
+    .game-area {
+      flex: 1;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      margin: 20px 0 15px;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      max-width: 350px;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: none;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #fff;
+      color: maroon;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="College Logo">
+    <img src="event_logo.png" alt="Event Logo">
+  </header>
+
+  <div class="game-area">
+    <h2>Final Round</h2>
+    
+    <!-- No autocomplete -->
+    <input type="text" id="answer" placeholder="Enter password here..." autocomplete="off" autocorrect="off">
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    function normalizeInput(str) {
+      return str.toLowerCase().replace(/\s+/g, "");
+    }
+
+    // List of 32 allowed passwords
+    const allowedAnswers = [
+      "motherboard","harddrive","operatingsystem","browser","algorithm","database",
+      "artificialintelligence","machinelearning","blockchain","cloudcomputing","malware",
+      "datamining","visualization","networkarchitecture","userexperience","firewall",
+      "virtualprivatenetwork","bigdata","router","server","centralprocessingunit",
+      "graphicsprocessingunit","encryption","description","javascript","transistors",
+      "cache","ipaddress","frontend","backend","omen","mongodb"
+    ];
+
+    // Track used passwords
+    const usedAnswers = new Set();
+
+    function checkAnswer() {
+      const userInput = normalizeInput(document.getElementById("answer").value);
+      const messageDiv = document.getElementById("message");
+
+      // Invalid password
+      if (!allowedAnswers.includes(userInput)) {
+        messageDiv.textContent = "❌ Invalid password!";
+        messageDiv.style.color = "red";
+        return;
+      }
+
+      // Already used password
+      if (usedAnswers.has(userInput)) {
+        messageDiv.textContent = "⚠️ This password is already used!";
+        messageDiv.style.color = "orange";
+        return;
+      }
+
+      // Correct password
+      usedAnswers.add(userInput);
+      messageDiv.textContent = "✅ Correct! Password accepted.";
+      messageDiv.style.color = "lightgreen";
+    }
+  </script>
+</body>
+</html>
